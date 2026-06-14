@@ -32,11 +32,11 @@ pipeline {
                 archiveArtifacts artifacts: 'target/*.jar'
             }
         }
-
         stage('Run Application') {
-            steps {
-                bat 'java -jar target\\*.jar'
-            }
-        }
+    steps {
+        bat 'java -jar target\\Booking_Website-0.0.1-SNAPSHOT.jar'
+    }
+}
+     
     }
 }
