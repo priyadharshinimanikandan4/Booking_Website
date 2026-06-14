@@ -3,20 +3,21 @@ pipeline {
 
     tools {
         maven 'Maven3'
-        jdk 'JDK17'
+        jdk 'JDK21'
     }
 
     stages {
 
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/priyadharshinimanikandan4/Booking_Website.git'
+                git branch: 'main',
+                    url: 'https://github.com/priyadharshinimanikandan4/Booking_Website'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'mvn clean compile'
+                sh 'mvn clean package -DskipTests'
             }
         }
 
@@ -28,7 +29,13 @@ pipeline {
 
         stage('Package') {
             steps {
-                sh 'mvn clean package'
+                archiveArtifacts artifacts: 'target/*.jar'
+            }
+        }
+
+        stage('Run') {
+            steps {
+                sh 'nohup java -jar target/*.jar > app.log 2>&1 &'
             }
         }
     }
