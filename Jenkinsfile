@@ -17,13 +17,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                bat 'mvn clean package -DskipTests'
             }
         }
 
         stage('Test') {
             steps {
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
 
@@ -33,9 +33,9 @@ pipeline {
             }
         }
 
-        stage('Run') {
+        stage('Run Application') {
             steps {
-                sh 'nohup java -jar target/*.jar > app.log 2>&1 &'
+                bat 'java -jar target\\*.jar'
             }
         }
     }
