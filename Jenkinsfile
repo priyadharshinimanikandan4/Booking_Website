@@ -33,22 +33,21 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
-            steps {
-                bat '''
-                echo Deploying application outside Jenkins workspace...
+       stage('Deploy') {
+    steps {
+        bat '''
+        echo Deploying application...
 
-                if not exist C:\\deploy mkdir C:\\deploy
+        if not exist C:\\deploy mkdir C:\\deploy
 
-                copy target\\Booking_Website-0.0.1-SNAPSHOT.jar C:\\deploy\\app.jar /Y
+        copy target\\Booking_Website-0.0.1-SNAPSHOT.jar C:\\deploy\\app.jar /Y
 
-                echo Stopping old process (if any)...
-                taskkill /F /IM java.exe /FI "WINDOWTITLE eq BookingApp" >nul 2>&1
+        echo Starting application in background...
 
-                echo Starting new application...
-                start "BookingApp" java -jar C:\\deploy\\app.jar
-                '''
-            }
-        }
+        cd C:\\deploy
+        start "" cmd /c "java -jar app.jar > app.log 2>&1"
+        '''
+    }
+}
     }
 }
