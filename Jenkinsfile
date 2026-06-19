@@ -16,6 +16,7 @@ pipeline{
 
       stage('Docker run'){
         steps{
+           bat 'docker rm -f springboot_container || exit 0'
           bat 'docker run -d -p 8081:8080 --name springboot_container springboot_app'
         }
       }
