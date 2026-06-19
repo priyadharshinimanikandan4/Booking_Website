@@ -5,7 +5,7 @@ pipeline{
     stages{
       stage('build'){
         steps{
-          bat 'mvn clean package'
+          bat 'mvnw.cmd clean package'
         }
       }
       stage('Docker Build'){
